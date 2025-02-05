@@ -4,6 +4,8 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 
+const shortId = require('shortid');
+
 const io = new Server(server, { cors: { origin: '*' } });
 
 app.get('/', (req, res) => {
@@ -23,6 +25,14 @@ io.on('connection', (socket) => {
     console.log(data);
     io.emit('get message', data);
   });
+
+  socket.on('create room', (data) => {
+    socket.id = shortId.generate();
+    console.log('New room created. Code => ', socket.id);
+
+    io.emit('room created', socket.id);
+
+  })
 });
 
 server.listen(3000, () => {
