@@ -2,6 +2,7 @@
 import SidebarComponent from './components/SidebarComponent.vue'
 import ChatComponent from './components/ChatComponent.vue'
 import io from 'socket.io-client';
+import InfoComponent from './components/InfoComponent.vue';
 
   const socket = io('localhost:3000');
 
@@ -16,6 +17,9 @@ import io from 'socket.io-client';
         </div>
         <div class="col-md-6 offset-md-3">
           <ChatComponent :socket="socket"/>
+        </div>
+        <div class="col-md-3">
+          <InfoComponent/>
         </div>
       </div>
     </div>

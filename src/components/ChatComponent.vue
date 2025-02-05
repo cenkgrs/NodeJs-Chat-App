@@ -1,7 +1,11 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, defineProps, toRefs} from 'vue';
 
-const { socket } = defineProps(['socket'])
+const props = defineProps({
+        socket: Object
+    });
+
+    const { socket } = toRefs(props);
 
 const user = ref('Cenk');
 const message = ref('');
