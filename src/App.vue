@@ -3,27 +3,22 @@ import SidebarComponent from './components/SidebarComponent.vue'
 import ChatComponent from './components/ChatComponent.vue'
 import io from 'socket.io-client';
 import InfoComponent from './components/InfoComponent.vue';
-
   const socket = io('localhost:3000');
 
 </script>
 
 <template>
-  <div id="app">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 offset-md-3">
+      <div class="row" style="height: 100%;">
+        <div class="lg:col-3">
           <SidebarComponent :socket="socket"/>
         </div>
-        <div class="col-md-6 offset-md-3">
+        <div class="lg:col-6">
           <ChatComponent :socket="socket"/>
         </div>
-        <div class="col-md-3">
+        <div class="lg:col-3">
           <InfoComponent/>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 
@@ -35,6 +30,9 @@ import InfoComponent from './components/InfoComponent.vue';
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+body {
+  height: 100vh;
 }
 </style>

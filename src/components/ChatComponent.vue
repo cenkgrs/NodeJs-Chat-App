@@ -1,11 +1,7 @@
 <script setup>
-import {ref, onMounted, defineProps, toRefs} from 'vue';
+import {ref, onMounted, defineProps} from 'vue';
 
-const props = defineProps({
-        socket: Object
-    });
-
-    const { socket } = toRefs(props);
+const props = defineProps(['socket']);
 
 const user = ref('Cenk');
 const message = ref('');
@@ -18,7 +14,7 @@ const sendMessage = (e) => {
     console.log({user: user.value,
         message: message.value});
 
-    socket.emit('chat message', {
+    props.socket.emit('chat message', {
         user: user.value,
         message: message.value
     });
@@ -27,7 +23,7 @@ const sendMessage = (e) => {
 }
 
 onMounted(() => {
-    socket.on('get message', (data) => {
+    props.socket.on('get message', (data) => {
         messages.value.push(data);
         //messages = [...messages, data];
         // you can also do this.messages.push(data)

@@ -1,0 +1,12 @@
+.sidebar {
+    background-color: #222831;
+    box-shadow: 0 1px 0px 3px black;
+    height: 100%;
+    color: #EEEEEE;
+    padding: 16px 16px;
+    text-align: left;
+}
+
+.sidebar button {
+    
+}

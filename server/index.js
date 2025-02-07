@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
 
   socket.on('create room', (data) => {
     socket.id = shortId.generate();
-    console.log('New room created. Code => ', socket.id);
+    console.log('New room created. Code => ', {socket_id: socket.id, name: "Oda1"});
 
     io.emit('room created', socket.id);
 
