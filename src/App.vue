@@ -4,18 +4,14 @@ import ChatComponent from './components/ChatComponent.vue'
 import io from 'socket.io-client';
 import InfoComponent from './components/InfoComponent.vue';
 import LoginComponent from './components/LoginComponent.vue';
+import { ref } from 'vue';
 
 const socket = io('localhost:3000');
 
 const login = ref(false);
-const token = ref('');
 
-const log = (res) => {
-
-	if (res.status) {
-		login.value = true;
-		token.value = res.token;
-	}
+const log = () => {
+	login.value = true;
 }
 
 </script>

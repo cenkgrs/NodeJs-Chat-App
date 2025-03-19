@@ -4,19 +4,23 @@ import axios from 'axios';
 import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import { defineEmits, emit } from 'vue';
 
 defineEmits('loginStatus');
 
-const password = ref('');
 const errorMessage = ref('');
+const username = ref('');
 
 const login = async () => {
+
+    emit('set user', {username: username.value});
+
     try {
-        const response = await axios.post('https://api.example.com/login', {
+        const response = await axios.post('localhost:3000/login', {
             username: username.value,
         });
 
-        emit('loginStatus', {success: true, username: username.value, token: response.data.token});
+        emit('loginStatus', {status: true, username: username.value, token: response.data.token});
 
         errorMessage.value = '';
     } catch (error) {

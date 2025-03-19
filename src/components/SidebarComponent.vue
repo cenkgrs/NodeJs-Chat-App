@@ -1,28 +1,41 @@
 <script setup>
 
-    import {ref, onMounted, defineProps} from 'vue';
-    import Button from 'primevue/button';
+import { ref, onMounted, defineProps } from 'vue';
+import Button from 'primevue/button';
+import Dropdown from 'primevue/dropdown';
+import InputText from 'primevue/inputtext';
 
-    const props = defineProps(['socket']);
+const props = defineProps(['socket']);
 
-    const rooms = ref([]);
+const rooms = ref(['General', 'Sports', 'Tech', 'Gaming']);
+const room = ref('General');
 
-    const roomCode = ref('');
+const roomName = ref('');
 
-    const createRoom = () => {
-        props.socket.emit('create room',  {
-            user: 'cenk',
-        });
-    }
+const roomCode = ref('');
 
-    onMounted(() => {
-        props.socket.on('room created', (data) => {
-
-            rooms.value.push({id: data.socket_id, name: data.name});
-
-            roomCode.value = data.socket_id;
-        });
+const createRoom = () => {
+    props.socket.emit('create room', {
+        username: 'cenk',
     });
+
+    roomName.value = '';
+}
+
+const joinRoom = () => {
+    props.socket.emit('joinRoom', room.value);
+};
+
+onMounted(() => {
+    props.socket.on('room created', (data) => {
+
+        rooms.value = data.rooms;
+
+        rooms.value.push({ id: data.socket_id, name: data.name });
+
+        roomCode.value = data.socket_id;
+    });
+});
 
 </script>
 
@@ -38,6 +51,9 @@
             <span>No rooms created yet</span>
         </div>
 
+        <Dropdown v-model="room" :options="rooms" placeholder="Select a room" class="w-full mb-3" @change="joinRoom" />
+
+        <InputText placeholder="Room Name" v-model="roomName"/>
         <Button label="Create Room" icon="pi pi-plus" severity="info" @click="createRoom" />
     </div>
 </template>
