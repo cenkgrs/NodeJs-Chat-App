@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/src/index.html');
 });
 
+app.post('/login', (req, res) => {
+	res.sendStatus(200);
+});
+
 io.on('connection', (socket) => {
   console.log('a user connected');
 
